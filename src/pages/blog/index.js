@@ -1,20 +1,20 @@
 import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import React, { useContext, useState } from 'react';
-import { AiOutlineHome } from "react-icons/ai";
+import { AiOutlineHome } from 'react-icons/ai';
 import { SingleBlog } from '../../components';
 import Link from '../../components/link';
 import { ThemeContext } from '../../contexts/theme-context';
-import { blogData } from '../../data/blogData';
+import { blogData } from '../../data/blog-data';
 
 function BlogPage() {
-    const [search, setSearch] = useState('')
+    const [search, setSearch] = useState('');
     const { theme } = useContext(ThemeContext);
 
     const filteredArticles = blogData.filter((blog) => {
-        const content = blog.title + blog.description + blog.date
-        return content.toLowerCase().includes(search.toLowerCase())
-    })
+        const content = blog.title + blog.description + blog.date;
+        return content.toLowerCase().includes(search.toLowerCase());
+    });
 
     const useStyles = makeStyles((t) => ({
         search: {
@@ -29,8 +29,11 @@ function BlogPage() {
             fontWeight: 500,
             fontSize: '0.9rem',
             backgroundColor: theme.secondary,
-            boxShadow: theme.type === 'dark' ? 'inset 3px 3px 6px #ffffff10, inset -3px -3px 6px #00000060' : 'inset 3px 3px 6px #ffffffbd, inset -3px -3px 6px #00000030',
-            "&::placeholder": {
+            boxShadow:
+                theme.type === 'dark'
+                    ? 'inset 3px 3px 6px #ffffff10, inset -3px -3px 6px #00000060'
+                    : 'inset 3px 3px 6px #ffffffbd, inset -3px -3px 6px #00000030',
+            '&::placeholder': {
                 color: theme.tertiary,
             },
             [t.breakpoints.down('sm')]: {
@@ -47,10 +50,12 @@ function BlogPage() {
             boxSizing: 'content-box',
             fontSize: '2rem',
             cursor: 'pointer',
-            boxShadow: theme.type === 'dark' ? '3px 3px 6px #ffffff40, -3px -3px 6px #00000050' : '3px 3px 6px #ffffff40, -3px -3px 6px #00000050',
+            boxShadow:
+                theme.type === 'dark'
+                    ? '3px 3px 6px #ffffff40, -3px -3px 6px #00000050'
+                    : '3px 3px 6px #ffffff40, -3px -3px 6px #00000050',
             transition: 'all 0.3s ease-in-out',
-            "&:hover":
-            {
+            '&:hover': {
                 color: theme.tertiary,
                 transform: 'scale(1.1)',
             },
@@ -63,31 +68,35 @@ function BlogPage() {
     const classes = useStyles();
 
     return (
-        <div
-            className="blogPage"
-            style={{ backgroundColor: theme.secondary }}>
-
+        <div className="blogPage" style={{ backgroundColor: theme.secondary }}>
             <div
                 className="blogPage--header"
-                style={{ backgroundColor: theme.primary }}>
+                style={{ backgroundColor: theme.primary }}
+            >
                 <Link href="/">
-                    <AiOutlineHome
-                        className={classes.home} />
+                    <AiOutlineHome className={classes.home} />
                 </Link>
                 <h1 style={{ color: theme.secondary }}>Blogs</h1>
             </div>
             <div className="blogPage--container">
                 <div className="blog--search">
-                    <input type="text"
-                        value={search} onChange={(e) => setSearch(e.target.value)}
+                    <input
+                        type="text"
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
                         placeholder="Seach blog..."
-                        className={classes.search} />
+                        className={classes.search}
+                    />
                 </div>
                 <div className="blogs--container">
                     <Grid
-                        className="blog-grid" container direction="row"
-                        alignItems="center" justifyContent="center">
-                        {filteredArticles.reverse().map(blog => (
+                        className="blog-grid"
+                        container
+                        direction="row"
+                        alignItems="center"
+                        justifyContent="center"
+                    >
+                        {filteredArticles.reverse().map((blog) => (
                             <SingleBlog
                                 theme={theme}
                                 title={blog.title}
@@ -103,7 +112,7 @@ function BlogPage() {
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
-export default BlogPage
+export default BlogPage;
