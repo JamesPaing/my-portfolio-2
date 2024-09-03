@@ -1,20 +1,21 @@
 import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import React, { useContext, useState } from 'react';
-import { AiOutlineHome } from "react-icons/ai";
+import { AiOutlineHome } from 'react-icons/ai';
 import { SingleProject } from '../../components';
 import Link from '../../components/link';
 import { ThemeContext } from '../../contexts/theme-context';
-import { projectsData } from '../../data/projectsData';
+import { projectsData } from '../../data/projects-data';
 
 function ProjectPage() {
-    const [search, setSearch] = useState('')
+    const [search, setSearch] = useState('');
     const { theme } = useContext(ThemeContext);
 
     const filteredArticles = projectsData.filter((project) => {
-        const content = project.projectName + project.projectDesc + project.tags
-        return content.toLowerCase().includes(search.toLowerCase())
-    })
+        const content =
+            project.projectName + project.projectDesc + project.tags;
+        return content.toLowerCase().includes(search.toLowerCase());
+    });
 
     const useStyles = makeStyles((t) => ({
         search: {
@@ -29,8 +30,11 @@ function ProjectPage() {
             fontWeight: 500,
             fontSize: '0.9rem',
             backgroundColor: theme.secondary,
-            boxShadow: theme.type === 'dark' ? 'inset 3px 3px 6px #ffffff10, inset -3px -3px 6px #00000060' : 'inset 3px 3px 6px #ffffffbd, inset -3px -3px 6px #00000030',
-            "&::placeholder": {
+            boxShadow:
+                theme.type === 'dark'
+                    ? 'inset 3px 3px 6px #ffffff10, inset -3px -3px 6px #00000060'
+                    : 'inset 3px 3px 6px #ffffffbd, inset -3px -3px 6px #00000030',
+            '&::placeholder': {
                 color: theme.tertiary,
             },
             [t.breakpoints.down('sm')]: {
@@ -47,10 +51,12 @@ function ProjectPage() {
             boxSizing: 'content-box',
             fontSize: '2rem',
             cursor: 'pointer',
-            boxShadow: theme.type === 'dark' ? '3px 3px 6px #ffffff40, -3px -3px 6px #00000050' : '3px 3px 6px #ffffff40, -3px -3px 6px #00000050',
+            boxShadow:
+                theme.type === 'dark'
+                    ? '3px 3px 6px #ffffff40, -3px -3px 6px #00000050'
+                    : '3px 3px 6px #ffffff40, -3px -3px 6px #00000050',
             transition: 'all 0.3s ease-in-out',
-            "&:hover":
-            {
+            '&:hover': {
                 color: theme.tertiary,
                 transform: 'scale(1.1)',
             },
@@ -63,9 +69,14 @@ function ProjectPage() {
     const classes = useStyles();
 
     return (
-        <div className="projectPage" style={{ backgroundColor: theme.secondary }}>
-
-            <div className="projectPage-header" style={{ backgroundColor: theme.primary }}>
+        <div
+            className="projectPage"
+            style={{ backgroundColor: theme.secondary }}
+        >
+            <div
+                className="projectPage-header"
+                style={{ backgroundColor: theme.primary }}
+            >
                 <Link href="/">
                     <AiOutlineHome className={classes.home} />
                 </Link>
@@ -73,16 +84,23 @@ function ProjectPage() {
             </div>
             <div className="projectPage-container">
                 <div className="projectPage-search">
-                    <input type="text" value={search}
+                    <input
+                        type="text"
+                        value={search}
                         onChange={(e) => setSearch(e.target.value)}
                         placeholder="Search project..."
-                        className={classes.search} />
+                        className={classes.search}
+                    />
                 </div>
                 <div className="project-container">
-                    <Grid className="project-grid"
-                        container direction="row" alignItems="center"
-                        justifyContent="center">
-                        {filteredArticles.map(project => (
+                    <Grid
+                        className="project-grid"
+                        container
+                        direction="row"
+                        alignItems="center"
+                        justifyContent="center"
+                    >
+                        {filteredArticles.map((project) => (
                             <SingleProject
                                 theme={theme}
                                 key={project.id}
@@ -99,7 +117,7 @@ function ProjectPage() {
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
-export default ProjectPage
+export default ProjectPage;
